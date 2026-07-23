@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0a6b4f">
+  <title>Đăng nhập · Sát hạch đường trường</title>
+  <style>
+    :root{--green:#0a6b4f;--ink:#15202b;--muted:#657283;--line:#dce4e7}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}
+    button,input{font:inherit}.login{min-height:100vh;display:grid;grid-template-columns:1.08fr .92fr;background:#fff}
+    .hero{position:relative;overflow:hidden;padding:clamp(34px,6vw,82px);color:#fff;background:linear-gradient(140deg,#064936,#0a6b4f 62%,#19a076)}
+    .hero:after{content:"";position:absolute;right:-10%;bottom:-26%;width:70%;aspect-ratio:1;border:1px solid #ffffff42;border-radius:50%;box-shadow:0 0 0 70px #ffffff12,0 0 0 140px #ffffff0b}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.02em}.mark{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:#fff;color:var(--green);font-size:23px}
+    .hero-copy{position:relative;z-index:1;max-width:640px;margin-top:16vh}.eyebrow{font-size:12px;letter-spacing:.17em;text-transform:uppercase;font-weight:800;color:#baf0d9}.hero h1{font-size:clamp(38px,5.4vw,72px);line-height:1.02;margin:16px 0 22px}.hero p{max-width:570px;font-size:18px;line-height:1.65;color:#dbf6ec}
+    .pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}.pill{padding:9px 13px;border:1px solid #ffffff55;border-radius:999px;background:#ffffff16;font-size:13px;font-weight:700}
+    .side{display:grid;place-items:center;padding:30px}.card{width:min(420px,100%)}.card h2{font-size:30px;margin:0 0 8px}.card>p{margin:0 0 30px;color:var(--muted)}
+    .field{margin:0 0 18px}.field label{display:block;margin:0 0 8px;font-size:13px;font-weight:800}.input{width:100%;height:52px;border:1px solid var(--line);border-radius:13px;padding:0 15px;outline:none;background:#fbfcfc}.input:focus{border-color:var(--green);box-shadow:0 0 0 4px #0a6b4f14}
+    .submit{width:100%;height:52px;border:0;border-radius:13px;background:var(--green);color:#fff;font-weight:800;box-shadow:0 10px 24px #0a6b4f35;cursor:pointer}.submit:disabled{opacity:.65}.error{min-height:22px;margin:9px 0 0;color:#d33b3b;font-size:13px;font-weight:700}.note{margin-top:25px;padding:13px 15px;border-radius:12px;background:#f3f7f5;color:var(--muted);font-size:12px;line-height:1.5}
+    @media(max-width:760px){.login{grid-template-columns:1fr}.hero{min-height:310px;padding:28px}.hero-copy{margin-top:55px}.hero h1{font-size:40px}.hero p{font-size:15px}.side{padding:32px 22px 46px}}
+  </style>
+</head>
+<body>
+  <section class="login">
+    <div class="hero">
+      <div class="brand"><span class="mark">✓</span><span>HỆ THỐNG SÁT HẠCH</span></div>
+      <div class="hero-copy">
+        <div class="eyebrow">Bài thi đường trường</div>
+        <h1>Chấm điểm nhanh.<br>Chính xác. Minh bạch.</h1>
+        <p>Công cụ hỗ trợ giáo viên chấm bài thi sát hạch lái xe ô tô hạng B và C1 trên điện thoại, máy tính bảng và máy tính.</p>
+        <div class="pills"><span class="pill">Hạng B</span><span class="pill">Hạng C1</span><span class="pill">Thang điểm 100</span></div>
+      </div>
+    </div>
+    <div class="side">
+      <form class="card" id="form">
+        <h2>Đăng nhập giáo viên</h2>
+        <p>Nhập tài khoản được cấp để bắt đầu ca thi.</p>
+        <div class="field"><label for="username">Tên đăng nhập</label><input class="input" id="username" autocomplete="username" required placeholder="Nhập tên đăng nhập"></div>
+        <div class="field"><label for="password">Mật khẩu</label><input class="input" id="password" type="password" autocomplete="current-password" required placeholder="Nhập mật khẩu"></div>
+        <button class="submit" id="submit" type="submit">Đăng nhập</button>
+        <div class="error" id="error"></div>
+        <div class="note">Tài khoản được xác thực an toàn trên máy chủ. Mật khẩu không được lưu trong mã nguồn công khai.</div>
+      </form>
+    </div>
+  </section>
+  <script>
+    const form=document.getElementById("form"),button=document.getElementById("submit"),error=document.getElementById("error");
+    form.addEventListener("submit",async e=>{
+      e.preventDefault();error.textContent="";button.disabled=true;button.textContent="Đang đăng nhập…";
+      try{
+        const response=await fetch("/api/login",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({username:document.getElementById("username").value,password:document.getElementById("password").value})});
+        if(!response.ok)throw new Error("Tài khoản hoặc mật khẩu chưa đúng.");
+        location.href="/app";
+      }catch(e){error.textContent=e.message}finally{button.disabled=false;button.textContent="Đăng nhập"}
+    });
+  </script>
+</body>
+</html>
