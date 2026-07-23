@@ -22,15 +22,17 @@
     .top-left{display:flex;align-items:center;gap:12px}.top-left .mark{background:var(--green);color:#fff}.top-title strong{display:block}.top-title small{color:var(--muted)}.top-actions{display:flex;align-items:center;gap:9px}
     .ghost,.primary,.danger{height:40px;padding:0 14px;border-radius:10px;font-weight:750}.ghost{border:1px solid var(--line);background:#fff;color:var(--ink)}.primary{border:1px solid var(--green);background:var(--green);color:#fff}.danger{border:1px solid #f2caca;background:#fff5f5;color:var(--red)}
     .container{width:min(1420px,100%);margin:auto;padding:24px clamp(14px,3vw,34px) 54px}.status-row{display:grid;grid-template-columns:1.4fr .8fr .8fr .8fr;gap:14px;margin-bottom:16px}
-    .card{background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:0 6px 22px rgba(20,36,58,.04)}.candidate{padding:18px;display:grid;grid-template-columns:1fr 1fr 140px;gap:13px}.candidate .field{margin:0}.candidate .input{height:44px}.candidate .wide{grid-column:span 2}.candidate .photo{grid-row:span 2;display:grid;place-items:center;border-radius:14px;background:linear-gradient(145deg,#eef5f2,#e4efeb);font-size:42px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:0 6px 22px rgba(20,36,58,.04)}.candidate{padding:18px;display:grid;grid-template-columns:1fr 1fr 140px;gap:13px}.candidate .field{margin:0}.candidate .input{height:44px}.candidate .wide{grid-column:span 2}.candidate .photo{grid-row:span 2;display:grid;place-items:center;border-radius:14px;background:linear-gradient(145deg,#eef5f2,#e4efeb);font-size:42px}.extra-info{grid-column:1/-1;border-top:1px solid var(--line);padding-top:12px}.extra-info summary{cursor:pointer;font-size:13px;font-weight:800;color:var(--green)}.extra-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:13px}.extra-grid .field{min-width:0}
     .stat{padding:18px;display:flex;flex-direction:column;justify-content:center}.stat span{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.stat strong{font-size:32px;margin-top:5px}.stat.score strong{color:var(--green)}.stat.result strong{font-size:20px}.pass{color:var(--green)!important}.fail{color:var(--red)!important}
     .work{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(320px,.7fr);gap:16px}.panel-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line)}.panel-head h3{margin:0;font-size:18px}.panel-head p{margin:3px 0 0;color:var(--muted);font-size:12px}
     .fault-list{padding:12px}.fault{display:grid;grid-template-columns:43px 1fr auto;align-items:center;gap:12px;padding:12px;border-radius:12px;border:1px solid transparent}.fault:hover{background:#f7faf9;border-color:#e8efec}.fault+.fault{margin-top:4px}.fault-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:11px;background:#edf5f2;color:var(--green);font-weight:900}.fault h4{margin:0 0 3px;font-size:14px}.fault p{margin:0;color:var(--muted);font-size:12px}.points{min-width:76px;height:38px;border:1px solid #f0d0d0;border-radius:10px;background:#fff6f6;color:var(--red);font-weight:850}.points:active{transform:scale(.98)}.points.fatal{background:var(--red);color:#fff;border-color:var(--red)}
     .log{padding:12px 16px;max-height:530px;overflow:auto}.empty{padding:34px 12px;text-align:center;color:var(--muted)}.log-item{display:grid;grid-template-columns:1fr auto;gap:9px;padding:12px 2px;border-bottom:1px solid #edf1f2}.log-item strong{display:block;font-size:13px}.log-item small{color:var(--muted)}.minus{font-weight:900;color:var(--red)}.summary{padding:16px;border-top:1px solid var(--line);background:#fbfcfc;border-radius:0 0 17px 17px}.summary-line{display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px}.summary-line.total{padding-top:10px;border-top:1px solid var(--line);font-size:17px;font-weight:850}.summary-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
     .toast{position:fixed;left:50%;bottom:22px;z-index:50;transform:translate(-50%,20px);padding:12px 17px;border-radius:12px;background:var(--navy);color:#fff;opacity:0;pointer-events:none;transition:.22s;box-shadow:var(--shadow);font-weight:700;font-size:13px}.toast.show{opacity:1;transform:translate(-50%,0)}
+    .print-sheet{display:none;color:#000;background:#fff;font-family:"Times New Roman",serif;font-size:12pt;line-height:1.25}.print-note{font-size:10pt;font-weight:700;margin-bottom:8mm}.print-header{display:grid;grid-template-columns:1fr 1.45fr;gap:10mm;text-align:center}.print-header strong{display:block}.print-rule{letter-spacing:2px}.print-title{text-align:center;font-size:14pt;font-weight:700;margin:10mm 0 4mm}.print-info{display:grid;grid-template-columns:1.05fr 1.15fr 1fr;column-gap:8mm;row-gap:2.2mm}.print-info div{display:grid;grid-template-columns:auto 1fr;gap:3px}.print-info b{white-space:nowrap}.print-value{border-bottom:1px dotted #555;min-height:17px;padding-left:3px}.print-photos{display:grid;grid-template-columns:repeat(4,1fr);gap:17mm;margin:5mm 10mm 2mm}.print-photo{height:27mm;border:1.3px solid #000;display:grid;place-items:center;text-align:center;font-size:9pt;line-height:1.15}.print-table{width:100%;border-collapse:collapse;table-layout:fixed;margin-top:2mm}.print-table th,.print-table td{border:1.2px solid #000;padding:2mm 1.5mm;vertical-align:top}.print-table th{text-align:center;font-weight:700}.print-table .c-stt{width:8%}.print-table .c-exam{width:24%}.print-table .c-time{width:28%}.print-table .c-detail{width:28%}.print-table .c-points{width:12%}.print-table tbody td{height:12mm}.print-conclusion{margin-top:7mm}.print-conclusion p{margin:2mm 0}.print-signatures{display:grid;grid-template-columns:repeat(3,1fr);gap:8mm;text-align:center;margin-top:10mm}.print-signatures strong{display:block}.print-signatures span{display:block;font-size:10pt;font-style:italic;margin-top:1mm}.signature-space{height:22mm}
     @media(max-width:1050px){.status-row{grid-template-columns:1fr 1fr}.candidate{grid-column:1/-1}.work{grid-template-columns:1fr}.log{max-height:360px}}
-    @media(max-width:760px){.login{grid-template-columns:1fr}.hero{min-height:310px;padding:28px}.hero-copy{margin-top:55px}.hero h1{font-size:40px}.hero p{font-size:15px}.login-side{padding:32px 22px 46px}.topbar{height:auto;min-height:68px;padding:11px 14px}.top-title small{display:none}.top-actions .label{display:none}.status-row{grid-template-columns:1fr 1fr}.candidate{grid-template-columns:1fr 1fr}.candidate .photo{display:none}.stat strong{font-size:25px}.fault{grid-template-columns:38px 1fr auto;padding:10px 6px}.fault-icon{width:38px;height:38px}.points{min-width:68px}.container{padding-top:15px}}
-    @media print{.topbar,.fault-panel,.summary-actions,.toast{display:none!important}.container{padding:0}.status-row,.work{display:block}.card{box-shadow:none;margin:0 0 12px}.log{max-height:none}.app{background:#fff}}
+    @media(max-width:760px){.login{grid-template-columns:1fr}.hero{min-height:310px;padding:28px}.hero-copy{margin-top:55px}.hero h1{font-size:40px}.hero p{font-size:15px}.login-side{padding:32px 22px 46px}.topbar{height:auto;min-height:68px;padding:11px 14px}.top-title small{display:none}.top-actions .label{display:none}.status-row{grid-template-columns:1fr 1fr}.candidate{grid-template-columns:1fr 1fr}.candidate .photo{display:none}.extra-grid{grid-template-columns:1fr 1fr}.stat strong{font-size:25px}.fault{grid-template-columns:38px 1fr auto;padding:10px 6px}.fault-icon{width:38px;height:38px}.points{min-width:68px}.container{padding-top:15px}}
+    @page{size:A4 portrait;margin:11mm 12mm 12mm}
+    @media print{body{background:#fff}.app,.login,.toast{display:none!important}.print-sheet{display:block!important}.print-table thead{display:table-header-group}}
   </style>
 </head>
 <body>
@@ -74,6 +76,18 @@
           <div class="field"><label>Số báo danh</label><input class="input data" id="candidateId" placeholder="00001"></div>
           <div class="field"><label>Hạng GPLX</label><select class="input data" id="licenseClass"><option>B</option><option>C1</option></select></div>
           <div class="photo">🚘</div>
+          <details class="extra-info">
+            <summary>Thông tin bổ sung cho biên bản in</summary>
+            <div class="extra-grid">
+              <div class="field"><label>Ngày sinh</label><input class="input data" id="dateOfBirth" type="date"></div>
+              <div class="field"><label>Số CCCD</label><input class="input data" id="citizenId" inputmode="numeric" placeholder="Nhập số CCCD"></div>
+              <div class="field"><label>Lần thi</label><input class="input data" id="attemptNo" type="number" min="1" value="1"></div>
+              <div class="field"><label>Khóa sát hạch</label><input class="input data" id="examCourse" placeholder="Tên khóa sát hạch"></div>
+              <div class="field"><label>Ngày sát hạch</label><input class="input data" id="examDate" type="date"></div>
+              <div class="field"><label>Số xe sát hạch</label><input class="input data" id="vehicleNo" placeholder="Nhập số xe"></div>
+              <div class="field"><label>Tổng quãng đường</label><input class="input data" id="totalDistance" placeholder="Ví dụ: 2 km"></div>
+            </div>
+          </details>
         </div>
         <div class="card stat score"><span>Điểm hiện tại</span><strong id="score">100</strong></div>
         <div class="card stat"><span>Thời gian</span><strong id="timer">00:00</strong></div>
@@ -98,6 +112,50 @@
       </section>
     </div>
   </main>
+  <section class="print-sheet" id="printSheet">
+    <div class="print-note">Mẫu số 03. Biên bản sát hạch thực hành lái xe trên đường các hạng B, C1, C, D1, D2, D</div>
+    <div class="print-header">
+      <div><strong>SỞ GIAO THÔNG VẬN TẢI ............</strong><strong>HỘI ĐỒNG SÁT HẠCH</strong><span class="print-rule">-------</span></div>
+      <div><strong>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</strong><strong>Độc lập - Tự do - Hạnh phúc</strong><span class="print-rule">----------------</span></div>
+    </div>
+    <div class="print-title">BIÊN BẢN SÁT HẠCH THỰC HÀNH LÁI XE TRÊN ĐƯỜNG</div>
+    <div class="print-info">
+      <div><b>Họ và tên:</b><span class="print-value" id="pName"></span></div>
+      <div><b>Khóa sát hạch:</b><span class="print-value" id="pCourse"></span></div>
+      <div><b>Hạng:</b><span class="print-value" id="pClass"></span></div>
+      <div><b>Ngày sinh:</b><span class="print-value" id="pBirth"></span></div>
+      <div><b>Ngày sát hạch:</b><span class="print-value" id="pExamDate"></span></div>
+      <div><b>Số báo danh:</b><span class="print-value" id="pCandidateId"></span></div>
+      <div><b>Số CCCD:</b><span class="print-value" id="pCitizenId"></span></div>
+      <div><b>Thời điểm bắt đầu:</b><span class="print-value" id="pStart"></span></div>
+      <div><b>Số xe sát hạch:</b><span class="print-value" id="pVehicle"></span></div>
+      <div><b>Lần thi:</b><span class="print-value" id="pAttempt"></span></div>
+      <div><b>Thời điểm kết thúc:</b><span class="print-value" id="pEnd"></span></div>
+      <div><b>Tổng quãng đường sát hạch:</b><span class="print-value" id="pDistance"></span></div>
+    </div>
+    <div class="print-photos">
+      <div class="print-photo">Ảnh<br>chân dung</div>
+      <div class="print-photo">Ảnh chụp<br>ngẫu nhiên</div>
+      <div class="print-photo">Ảnh chụp<br>ngẫu nhiên</div>
+      <div class="print-photo">Ảnh chụp<br>ngẫu nhiên</div>
+    </div>
+    <table class="print-table">
+      <thead>
+        <tr><th class="c-stt" rowspan="2">STT</th><th class="c-exam" rowspan="2">Bài thi</th><th class="c-time" colspan="2">Thời điểm</th><th class="c-detail" rowspan="2">Chi tiết lỗi</th><th class="c-points" rowspan="2">Điểm trừ</th></tr>
+        <tr><th>Bắt đầu bài</th><th>Kết thúc bài</th></tr>
+      </thead>
+      <tbody id="printRows"></tbody>
+    </table>
+    <div class="print-conclusion">
+      <p><b>Kết luận:</b> <span id="pResult"></span></p>
+      <p><b>Số điểm đạt được:</b> <span id="pScore"></span></p>
+    </div>
+    <div class="print-signatures">
+      <div><strong>THÍ SINH</strong><span>(Ký, ghi rõ họ tên)</span><div class="signature-space"></div><b id="pSignName"></b></div>
+      <div><strong>SÁT HẠCH VIÊN 1</strong><span>(Ký, ghi rõ họ tên)</span><div class="signature-space"></div></div>
+      <div><strong>SÁT HẠCH VIÊN 2</strong><span>(Ký, ghi rõ họ tên)</span><div class="signature-space"></div></div>
+    </div>
+  </section>
   <div class="toast" id="toast"></div>
 
   <script>
@@ -113,14 +171,14 @@
       {icon:"!",name:"Can thiệp của sát hạch viên",detail:"Sát hạch viên phải phanh hoặc điều khiển xe",points:100,fatal:true},
       {icon:"✕",name:"Gây tai nạn hoặc tình huống nguy hiểm",detail:"Mất an toàn nghiêm trọng trong quá trình thi",points:100,fatal:true}
     ];
-    let events=[],seconds=0,tick=null,running=false,finished=false;
+    let events=[],seconds=0,tick=null,running=false,finished=false,startedAt=null,endedAt=null;
     let soundEnabled=localStorage.getItem("exam_sound")!=="off",audioContext=null,vietnameseVoice=null;
     const $=id=>document.getElementById(id);
-    const femaleVoicePattern=/hoài my|hoai my|linh|thảo|thao|female|nữ|vif|google.*việt|google.*vietnam/i;
+    const femaleVoicePattern=/hoài my|hoai my|thảo|thao|female|nữ|vif|google.*việt|google.*vietnam/i;
     function selectVietnameseVoice(){
       if(!("speechSynthesis" in window))return null;
       const voices=speechSynthesis.getVoices(),vi=voices.filter(v=>/^vi[-_]/i.test(v.lang)||/việt|vietnam/i.test(v.name));
-      const preferred=[/hoài my|hoai my/i,/linh/i,/thảo|thao/i,/vif/i,/female|nữ/i,/google.*việt|google.*vietnam/i,/microsoft.*việt|microsoft.*vietnam/i];
+      const preferred=[/hoài my|hoai my/i,/vif/i,/thảo|thao/i,/female|nữ/i,/google.*việt|google.*vietnam/i,/microsoft.*việt|microsoft.*vietnam/i];
       vietnameseVoice=preferred.map(pattern=>vi.find(v=>pattern.test(v.name))).find(Boolean)||vi[0]||null;
       return vietnameseVoice;
     }
@@ -158,23 +216,46 @@
       };
       (patterns[kind]||[[440,.06,0,"sine"]]).forEach(args=>tone(...args));
     }
-    function refreshSoundButton(){$("soundBtn").innerHTML=`${soundEnabled?"🔊":"🔇"} <span class="label">${soundEnabled?"Âm thanh":"Đã tắt"}</span>`}
+    function refreshSoundButton(){$("soundBtn").innerHTML=`${soundEnabled?"🔊":"🔇"} <span class="label">${soundEnabled?"Giọng miền Nam":"Đã tắt"}</span>`}
     function showApp(){$("loginView").classList.add("hidden");$("appView").classList.remove("hidden");renderFaults();restore()}
     function renderFaults(){$("faultList").innerHTML=faults.map((f,i)=>`<div class="fault"><div class="fault-icon">${f.icon}</div><div><h4>${f.name}</h4><p>${f.detail}</p></div><button class="points ${f.fatal?"fatal":""}" data-i="${i}">${f.fatal?"TRƯỢT":"-"+f.points}</button></div>`).join("");document.querySelectorAll(".points").forEach(b=>b.onclick=()=>addFault(+b.dataset.i))}
     function addFault(i){if(finished)return notify("Bài thi đã kết thúc.");const f=faults[i];events.push({...f,time:seconds});if(f.fatal)finished=true;sound(f.fatal?"fatal":"deduct");const pointWord=f.points===5?"năm":f.points===10?"mười":String(f.points);speak(f.fatal?`Bài thi không đạt. ${f.name}.`:`${f.name}. Trừ ${pointWord} điểm.`);update();notify(f.fatal?"Đã ghi lỗi trực tiếp trượt":"Đã trừ "+f.points+" điểm")}
     function score(){return Math.max(0,100-events.reduce((a,e)=>a+e.points,0))}
     function update(){const s=score(),fatal=events.some(e=>e.fatal);$("score").textContent=s;$("finalScore").textContent=s;$("deducted").textContent=100-s;const pass=!fatal&&s>=80;$("result").textContent=pass?"ĐẠT":"KHÔNG ĐẠT";$("result").className=pass?"pass":"fail";$("log").innerHTML=events.length?events.map(e=>`<div class="log-item"><div><strong>${e.name}</strong><small>${format(e.time)}</small></div><span class="minus">${e.fatal?"TRƯỢT":"-"+e.points}</span></div>`).reverse().join(""):`<div class="empty">Chưa ghi nhận lỗi nào.</div>`}
     function format(n){return String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0")}
-    function start(){if(finished)return;running=!running;sound(running?"start":"pause");speak(running?"Bắt đầu bài thi.":"Tạm dừng bài thi.");$("startBtn").textContent=running?"Tạm dừng":"Tiếp tục";clearInterval(tick);if(running)tick=setInterval(()=>{$("timer").textContent=format(++seconds)},1000)}
-    function snapshot(){return{events,seconds,name:$("candidateName").value,id:$("candidateId").value,cls:$("licenseClass").value}}
-    function restore(){const d=JSON.parse(localStorage.getItem("road_exam")||"null");if(!d)return;events=d.events||[];seconds=d.seconds||0;$("candidateName").value=d.name||"";$("candidateId").value=d.id||"";$("licenseClass").value=d.cls||"B";$("timer").textContent=format(seconds);update()}
+    function start(){if(finished)return;running=!running;if(running&&!startedAt)startedAt=new Date();sound(running?"start":"pause");speak(running?"Bắt đầu bài thi.":"Tạm dừng bài thi.");$("startBtn").textContent=running?"Tạm dừng":"Tiếp tục";clearInterval(tick);if(running)tick=setInterval(()=>{$("timer").textContent=format(++seconds)},1000)}
+    const detailIds=["dateOfBirth","citizenId","attemptNo","examCourse","examDate","vehicleNo","totalDistance"];
+    function snapshot(){const details=Object.fromEntries(detailIds.map(id=>[id,$(id).value]));return{events,seconds,name:$("candidateName").value,id:$("candidateId").value,cls:$("licenseClass").value,details,startedAt:startedAt?.toISOString()||null,endedAt:endedAt?.toISOString()||null}}
+    function restore(){const d=JSON.parse(localStorage.getItem("road_exam")||"null");if(!d)return;events=d.events||[];seconds=d.seconds||0;startedAt=d.startedAt?new Date(d.startedAt):null;endedAt=d.endedAt?new Date(d.endedAt):null;$("candidateName").value=d.name||"";$("candidateId").value=d.id||"";$("licenseClass").value=d.cls||"B";detailIds.forEach(id=>$(id).value=d.details?.[id]||($(id).value||""));$("timer").textContent=format(seconds);update()}
     function notify(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),1800)}
     $("startBtn").onclick=start;$("undoBtn").onclick=()=>{if(!events.length)return notify("Không có thao tác để hoàn tác.");events.pop();finished=false;sound("undo");speak("Đã hoàn tác lỗi vừa chấm.");update();notify("Đã hoàn tác lỗi gần nhất")};
-    $("soundBtn").onclick=()=>{soundEnabled=!soundEnabled;localStorage.setItem("exam_sound",soundEnabled?"on":"off");refreshSoundButton();if(soundEnabled){sound("success");speak("Âm thanh và giọng đọc đã bật.")}else if("speechSynthesis" in window)speechSynthesis.cancel()};
+    $("soundBtn").onclick=()=>{soundEnabled=!soundEnabled;localStorage.setItem("exam_sound",soundEnabled?"on":"off");refreshSoundButton();if(soundEnabled){sound("success");speak("Giọng nữ miền Nam đã bật.")}else if("speechSynthesis" in window)speechSynthesis.cancel()};
     $("saveBtn").onclick=()=>{localStorage.setItem("road_exam",JSON.stringify(snapshot()));sound("success");notify("Đã lưu dữ liệu trên thiết bị")};
-    $("resetBtn").onclick=()=>{if(!confirm("Làm mới toàn bộ bài thi hiện tại?"))return;events=[];seconds=0;finished=false;running=false;clearInterval(tick);$("timer").textContent="00:00";$("startBtn").textContent="Bắt đầu thi";sound("undo");update();localStorage.removeItem("road_exam")};
-    $("finishBtn").onclick=()=>{finished=true;running=false;clearInterval(tick);sound("finish");update();speak(`Kết thúc bài thi. Kết quả ${$("result").textContent.toLowerCase()}.`);notify("Đã kết thúc bài thi")};
-    $("printBtn").onclick=()=>window.print();$("logoutBtn").onclick=async()=>{await fetch("/api/logout",{method:"POST"});location.href="/"};
+    $("resetBtn").onclick=()=>{if(!confirm("Làm mới toàn bộ bài thi hiện tại?"))return;events=[];seconds=0;finished=false;running=false;startedAt=null;endedAt=null;clearInterval(tick);$("timer").textContent="00:00";$("startBtn").textContent="Bắt đầu thi";sound("undo");update();localStorage.removeItem("road_exam")};
+    $("finishBtn").onclick=()=>{finished=true;running=false;endedAt=new Date();clearInterval(tick);sound("finish");update();speak(`Kết thúc bài thi. Kết quả ${$("result").textContent.toLowerCase()}.`);notify("Đã kết thúc bài thi")};
+    function displayDate(value){if(!value)return"";const [y,m,d]=value.split("-");return`${d}/${m}/${y}`}
+    function displayClock(value){return value?new Date(value).toLocaleTimeString("vi-VN",{hour:"2-digit",minute:"2-digit",second:"2-digit"}):""}
+    function setPrint(id,value){$(id).textContent=value||""}
+    function preparePrint(){
+      const phases=[
+        {name:"Xuất phát",match:["Không bật tín hiệu xin đường","Không thắt dây an toàn","Khởi hành không an toàn"]},
+        {name:"Tăng số",match:["Tốc độ không phù hợp","Sử dụng làn đường không đúng"]},
+        {name:"Giảm số",match:["Để xe chết máy"]},
+        {name:"Kết thúc",match:[]},
+        {name:"Các lỗi khác",match:["Không chấp hành biển báo","Xử lý tình huống chưa tốt","Can thiệp của sát hạch viên","Gây tai nạn hoặc tình huống nguy hiểm"]}
+      ];
+      setPrint("pName",$("candidateName").value);setPrint("pSignName",$("candidateName").value);setPrint("pCourse",$("examCourse").value);setPrint("pClass",$("licenseClass").value);
+      setPrint("pBirth",displayDate($("dateOfBirth").value));setPrint("pExamDate",displayDate($("examDate").value));setPrint("pCandidateId",$("candidateId").value);setPrint("pCitizenId",$("citizenId").value);
+      setPrint("pStart",displayClock(startedAt));setPrint("pEnd",displayClock(endedAt));setPrint("pVehicle",$("vehicleNo").value);setPrint("pAttempt",$("attemptNo").value);setPrint("pDistance",$("totalDistance").value);
+      setPrint("pResult",$("result").textContent);setPrint("pScore",score()+"/100 điểm");
+      $("printRows").innerHTML=phases.map((phase,index)=>{
+        const list=events.filter(e=>phase.match.includes(e.name)),details=list.map(e=>e.name).join("; "),points=list.reduce((sum,e)=>sum+e.points,0);
+        const begin=index===0?displayClock(startedAt):"",end=index===3?displayClock(endedAt):"";
+        return`<tr><td style="text-align:center">${index+1}</td><td>${phase.name}</td><td style="text-align:center">${begin}</td><td style="text-align:center">${end}</td><td>${details}</td><td style="text-align:center">${points?Math.min(points,100):""}</td></tr>`
+      }).join("");
+    }
+    $("printBtn").onclick=()=>{preparePrint();window.print()};$("logoutBtn").onclick=async()=>{await fetch("/api/logout",{method:"POST"});location.href="/"};
+    if(!$("examDate").value)$("examDate").value=new Date().toISOString().slice(0,10);
     refreshSoundButton();renderFaults();restore();
   </script>
 </body>
