@@ -61,6 +61,7 @@
     <header class="topbar">
       <div class="top-left"><span class="mark">✓</span><div class="top-title"><strong>Sát hạch đường trường</strong><small>Hạng B & C1 · Phiên chấm điểm</small></div></div>
       <div class="top-actions">
+        <button class="ghost" id="soundBtn">🔊 <span class="label">Âm thanh</span></button>
         <button class="ghost" id="saveBtn">💾 <span class="label">Lưu tạm</span></button>
         <button class="ghost" id="printBtn">🖨️ <span class="label">In biên bản</span></button>
         <button class="danger" id="logoutBtn">Đăng xuất</button>
@@ -113,23 +114,46 @@
       {icon:"✕",name:"Gây tai nạn hoặc tình huống nguy hiểm",detail:"Mất an toàn nghiêm trọng trong quá trình thi",points:100,fatal:true}
     ];
     let events=[],seconds=0,tick=null,running=false,finished=false;
+    let soundEnabled=localStorage.getItem("exam_sound")!=="off",audioContext=null;
     const $=id=>document.getElementById(id);
+    function tone(frequency,duration=.08,delay=0,type="sine",volume=.055){
+      if(!soundEnabled)return;
+      audioContext ||= new (window.AudioContext||window.webkitAudioContext)();
+      const start=audioContext.currentTime+delay,osc=audioContext.createOscillator(),gain=audioContext.createGain();
+      osc.type=type;osc.frequency.setValueAtTime(frequency,start);
+      gain.gain.setValueAtTime(.0001,start);gain.gain.exponentialRampToValueAtTime(volume,start+.012);gain.gain.exponentialRampToValueAtTime(.0001,start+duration);
+      osc.connect(gain);gain.connect(audioContext.destination);osc.start(start);osc.stop(start+duration+.02);
+    }
+    function sound(kind){
+      const patterns={
+        deduct:[[330,.08,0,"triangle"],[245,.11,.07,"triangle"]],
+        fatal:[[220,.14,0,"sawtooth"],[165,.18,.14,"sawtooth"],[110,.24,.32,"sawtooth"]],
+        undo:[[300,.07,0,"sine"],[440,.1,.07,"sine"]],
+        start:[[440,.07,0,"sine"],[660,.11,.08,"sine"]],
+        pause:[[520,.07,0,"sine"],[390,.1,.07,"sine"]],
+        success:[[520,.07,0,"sine"],[660,.08,.07,"sine"],[780,.12,.15,"sine"]],
+        finish:[[440,.09,0,"triangle"],[554,.1,.09,"triangle"],[659,.15,.19,"triangle"]]
+      };
+      (patterns[kind]||[[440,.06,0,"sine"]]).forEach(args=>tone(...args));
+    }
+    function refreshSoundButton(){$("soundBtn").innerHTML=`${soundEnabled?"🔊":"🔇"} <span class="label">${soundEnabled?"Âm thanh":"Đã tắt"}</span>`}
     function showApp(){$("loginView").classList.add("hidden");$("appView").classList.remove("hidden");renderFaults();restore()}
     function renderFaults(){$("faultList").innerHTML=faults.map((f,i)=>`<div class="fault"><div class="fault-icon">${f.icon}</div><div><h4>${f.name}</h4><p>${f.detail}</p></div><button class="points ${f.fatal?"fatal":""}" data-i="${i}">${f.fatal?"TRƯỢT":"-"+f.points}</button></div>`).join("");document.querySelectorAll(".points").forEach(b=>b.onclick=()=>addFault(+b.dataset.i))}
-    function addFault(i){if(finished)return notify("Bài thi đã kết thúc.");const f=faults[i];events.push({...f,time:seconds});if(f.fatal)finished=true;update();notify(f.fatal?"Đã ghi lỗi trực tiếp trượt":"Đã trừ "+f.points+" điểm")}
+    function addFault(i){if(finished)return notify("Bài thi đã kết thúc.");const f=faults[i];events.push({...f,time:seconds});if(f.fatal)finished=true;sound(f.fatal?"fatal":"deduct");update();notify(f.fatal?"Đã ghi lỗi trực tiếp trượt":"Đã trừ "+f.points+" điểm")}
     function score(){return Math.max(0,100-events.reduce((a,e)=>a+e.points,0))}
     function update(){const s=score(),fatal=events.some(e=>e.fatal);$("score").textContent=s;$("finalScore").textContent=s;$("deducted").textContent=100-s;const pass=!fatal&&s>=80;$("result").textContent=pass?"ĐẠT":"KHÔNG ĐẠT";$("result").className=pass?"pass":"fail";$("log").innerHTML=events.length?events.map(e=>`<div class="log-item"><div><strong>${e.name}</strong><small>${format(e.time)}</small></div><span class="minus">${e.fatal?"TRƯỢT":"-"+e.points}</span></div>`).reverse().join(""):`<div class="empty">Chưa ghi nhận lỗi nào.</div>`}
     function format(n){return String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0")}
-    function start(){if(finished)return;running=!running;$("startBtn").textContent=running?"Tạm dừng":"Tiếp tục";clearInterval(tick);if(running)tick=setInterval(()=>{$("timer").textContent=format(++seconds)},1000)}
+    function start(){if(finished)return;running=!running;sound(running?"start":"pause");$("startBtn").textContent=running?"Tạm dừng":"Tiếp tục";clearInterval(tick);if(running)tick=setInterval(()=>{$("timer").textContent=format(++seconds)},1000)}
     function snapshot(){return{events,seconds,name:$("candidateName").value,id:$("candidateId").value,cls:$("licenseClass").value}}
     function restore(){const d=JSON.parse(localStorage.getItem("road_exam")||"null");if(!d)return;events=d.events||[];seconds=d.seconds||0;$("candidateName").value=d.name||"";$("candidateId").value=d.id||"";$("licenseClass").value=d.cls||"B";$("timer").textContent=format(seconds);update()}
     function notify(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),1800)}
-    $("startBtn").onclick=start;$("undoBtn").onclick=()=>{if(!events.length)return notify("Không có thao tác để hoàn tác.");events.pop();finished=false;update();notify("Đã hoàn tác lỗi gần nhất")};
-    $("saveBtn").onclick=()=>{localStorage.setItem("road_exam",JSON.stringify(snapshot()));notify("Đã lưu dữ liệu trên thiết bị")};
-    $("resetBtn").onclick=()=>{if(!confirm("Làm mới toàn bộ bài thi hiện tại?"))return;events=[];seconds=0;finished=false;running=false;clearInterval(tick);$("timer").textContent="00:00";$("startBtn").textContent="Bắt đầu thi";update();localStorage.removeItem("road_exam")};
-    $("finishBtn").onclick=()=>{finished=true;running=false;clearInterval(tick);update();notify("Đã kết thúc bài thi")};
+    $("startBtn").onclick=start;$("undoBtn").onclick=()=>{if(!events.length)return notify("Không có thao tác để hoàn tác.");events.pop();finished=false;sound("undo");update();notify("Đã hoàn tác lỗi gần nhất")};
+    $("soundBtn").onclick=()=>{soundEnabled=!soundEnabled;localStorage.setItem("exam_sound",soundEnabled?"on":"off");refreshSoundButton();if(soundEnabled)sound("success")};
+    $("saveBtn").onclick=()=>{localStorage.setItem("road_exam",JSON.stringify(snapshot()));sound("success");notify("Đã lưu dữ liệu trên thiết bị")};
+    $("resetBtn").onclick=()=>{if(!confirm("Làm mới toàn bộ bài thi hiện tại?"))return;events=[];seconds=0;finished=false;running=false;clearInterval(tick);$("timer").textContent="00:00";$("startBtn").textContent="Bắt đầu thi";sound("undo");update();localStorage.removeItem("road_exam")};
+    $("finishBtn").onclick=()=>{finished=true;running=false;clearInterval(tick);sound("finish");update();notify("Đã kết thúc bài thi")};
     $("printBtn").onclick=()=>window.print();$("logoutBtn").onclick=async()=>{await fetch("/api/logout",{method:"POST"});location.href="/"};
-    renderFaults();restore();
+    refreshSoundButton();renderFaults();restore();
   </script>
 </body>
 </html>
