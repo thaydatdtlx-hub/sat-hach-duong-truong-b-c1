@@ -116,10 +116,11 @@
     let events=[],seconds=0,tick=null,running=false,finished=false;
     let soundEnabled=localStorage.getItem("exam_sound")!=="off",audioContext=null,vietnameseVoice=null;
     const $=id=>document.getElementById(id);
+    const femaleVoicePattern=/hoài my|hoai my|linh|thảo|thao|female|nữ|vif|google.*việt|google.*vietnam/i;
     function selectVietnameseVoice(){
       if(!("speechSynthesis" in window))return null;
       const voices=speechSynthesis.getVoices(),vi=voices.filter(v=>/^vi[-_]/i.test(v.lang)||/việt|vietnam/i.test(v.name));
-      const preferred=[/hoài my|hoai my/i,/linh/i,/female|nữ/i,/google.*việt|google.*vietnam/i,/microsoft.*việt|microsoft.*vietnam/i];
+      const preferred=[/hoài my|hoai my/i,/linh/i,/thảo|thao/i,/vif/i,/female|nữ/i,/google.*việt|google.*vietnam/i,/microsoft.*việt|microsoft.*vietnam/i];
       vietnameseVoice=preferred.map(pattern=>vi.find(v=>pattern.test(v.name))).find(Boolean)||vi[0]||null;
       return vietnameseVoice;
     }
@@ -131,7 +132,10 @@
       if(!soundEnabled||!("speechSynthesis" in window))return;
       speechSynthesis.cancel();
       const utterance=new SpeechSynthesisUtterance(text);
-      utterance.lang="vi-VN";utterance.voice=vietnameseVoice||selectVietnameseVoice();utterance.rate=.9;utterance.pitch=1.06;utterance.volume=1;
+      utterance.lang="vi-VN";utterance.voice=vietnameseVoice||selectVietnameseVoice();
+      utterance.rate=.78;
+      utterance.pitch=utterance.voice&&femaleVoicePattern.test(utterance.voice.name)?1.04:1.28;
+      utterance.volume=.96;
       speechSynthesis.speak(utterance);
     }
     function tone(frequency,duration=.08,delay=0,type="sine",volume=.055){
@@ -157,7 +161,7 @@
     function refreshSoundButton(){$("soundBtn").innerHTML=`${soundEnabled?"🔊":"🔇"} <span class="label">${soundEnabled?"Âm thanh":"Đã tắt"}</span>`}
     function showApp(){$("loginView").classList.add("hidden");$("appView").classList.remove("hidden");renderFaults();restore()}
     function renderFaults(){$("faultList").innerHTML=faults.map((f,i)=>`<div class="fault"><div class="fault-icon">${f.icon}</div><div><h4>${f.name}</h4><p>${f.detail}</p></div><button class="points ${f.fatal?"fatal":""}" data-i="${i}">${f.fatal?"TRƯỢT":"-"+f.points}</button></div>`).join("");document.querySelectorAll(".points").forEach(b=>b.onclick=()=>addFault(+b.dataset.i))}
-    function addFault(i){if(finished)return notify("Bài thi đã kết thúc.");const f=faults[i];events.push({...f,time:seconds});if(f.fatal)finished=true;sound(f.fatal?"fatal":"deduct");speak(f.fatal?`Bài thi không đạt. ${f.name}.`:f.name+".");update();notify(f.fatal?"Đã ghi lỗi trực tiếp trượt":"Đã trừ "+f.points+" điểm")}
+    function addFault(i){if(finished)return notify("Bài thi đã kết thúc.");const f=faults[i];events.push({...f,time:seconds});if(f.fatal)finished=true;sound(f.fatal?"fatal":"deduct");const pointWord=f.points===5?"năm":f.points===10?"mười":String(f.points);speak(f.fatal?`Bài thi không đạt. ${f.name}.`:`${f.name}. Trừ ${pointWord} điểm.`);update();notify(f.fatal?"Đã ghi lỗi trực tiếp trượt":"Đã trừ "+f.points+" điểm")}
     function score(){return Math.max(0,100-events.reduce((a,e)=>a+e.points,0))}
     function update(){const s=score(),fatal=events.some(e=>e.fatal);$("score").textContent=s;$("finalScore").textContent=s;$("deducted").textContent=100-s;const pass=!fatal&&s>=80;$("result").textContent=pass?"ĐẠT":"KHÔNG ĐẠT";$("result").className=pass?"pass":"fail";$("log").innerHTML=events.length?events.map(e=>`<div class="log-item"><div><strong>${e.name}</strong><small>${format(e.time)}</small></div><span class="minus">${e.fatal?"TRƯỢT":"-"+e.points}</span></div>`).reverse().join(""):`<div class="empty">Chưa ghi nhận lỗi nào.</div>`}
     function format(n){return String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0")}
