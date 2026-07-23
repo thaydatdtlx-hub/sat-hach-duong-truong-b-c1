@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0a6b4f">
+  <title>Sát hạch đường trường B & C1</title>
+  <style>
+    :root{--green:#0a6b4f;--green2:#13835f;--navy:#14243a;--ink:#15202b;--muted:#657283;--line:#dce4e7;--bg:#f4f7f6;--white:#fff;--red:#d33b3b;--amber:#d58a00;--shadow:0 16px 44px rgba(22,52,44,.13)}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
+    button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+    .login{min-height:100vh;display:grid;grid-template-columns:1.08fr .92fr;background:#fff}
+    .hero{position:relative;overflow:hidden;padding:clamp(34px,6vw,82px);color:#fff;background:linear-gradient(140deg,#064936,#0a6b4f 62%,#19a076)}
+    .hero:after{content:"";position:absolute;right:-10%;bottom:-26%;width:70%;aspect-ratio:1;border:1px solid #ffffff42;border-radius:50%;box-shadow:0 0 0 70px #ffffff12,0 0 0 140px #ffffff0b}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.02em}.mark{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:#fff;color:var(--green);font-size:23px}
+    .hero-copy{position:relative;z-index:1;max-width:640px;margin-top:16vh}.eyebrow{font-size:12px;letter-spacing:.17em;text-transform:uppercase;font-weight:800;color:#baf0d9}.hero h1{font-size:clamp(38px,5.4vw,72px);line-height:1.02;margin:16px 0 22px}.hero p{max-width:570px;font-size:18px;line-height:1.65;color:#dbf6ec}
+    .pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}.pill{padding:9px 13px;border:1px solid #ffffff55;border-radius:999px;background:#ffffff16;font-size:13px;font-weight:700}
+    .login-side{display:grid;place-items:center;padding:30px}.login-card{width:min(420px,100%)}.login-card h2{font-size:30px;margin:0 0 8px}.login-card>p{margin:0 0 30px;color:var(--muted)}
+    .field{margin:0 0 18px}.field label{display:block;margin:0 0 8px;font-size:13px;font-weight:800}.input{width:100%;height:52px;border:1px solid var(--line);border-radius:13px;padding:0 15px;outline:none;background:#fbfcfc}.input:focus{border-color:var(--green);box-shadow:0 0 0 4px #0a6b4f14}
+    .login-btn{width:100%;height:52px;border:0;border-radius:13px;background:var(--green);color:#fff;font-weight:800;box-shadow:0 10px 24px #0a6b4f35}.login-btn:active{transform:translateY(1px)}.login-error{min-height:22px;margin:8px 0 0;color:var(--red);font-size:13px;font-weight:700}.login-note{margin-top:25px;padding:13px 15px;border-radius:12px;background:#f3f7f5;color:var(--muted);font-size:12px;line-height:1.5}
+    .app{min-height:100vh}.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:18px;height:72px;padding:0 clamp(16px,4vw,42px);background:#fff;border-bottom:1px solid var(--line)}
+    .top-left{display:flex;align-items:center;gap:12px}.top-left .mark{background:var(--green);color:#fff}.top-title strong{display:block}.top-title small{color:var(--muted)}.top-actions{display:flex;align-items:center;gap:9px}
+    .ghost,.primary,.danger{height:40px;padding:0 14px;border-radius:10px;font-weight:750}.ghost{border:1px solid var(--line);background:#fff;color:var(--ink)}.primary{border:1px solid var(--green);background:var(--green);color:#fff}.danger{border:1px solid #f2caca;background:#fff5f5;color:var(--red)}
+    .container{width:min(1420px,100%);margin:auto;padding:24px clamp(14px,3vw,34px) 54px}.status-row{display:grid;grid-template-columns:1.4fr .8fr .8fr .8fr;gap:14px;margin-bottom:16px}
+    .card{background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:0 6px 22px rgba(20,36,58,.04)}.candidate{padding:18px;display:grid;grid-template-columns:1fr 1fr 140px;gap:13px}.candidate .field{margin:0}.candidate .input{height:44px}.candidate .wide{grid-column:span 2}.candidate .photo{grid-row:span 2;display:grid;place-items:center;border-radius:14px;background:linear-gradient(145deg,#eef5f2,#e4efeb);font-size:42px}
+    .stat{padding:18px;display:flex;flex-direction:column;justify-content:center}.stat span{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}.stat strong{font-size:32px;margin-top:5px}.stat.score strong{color:var(--green)}.stat.result strong{font-size:20px}.pass{color:var(--green)!important}.fail{color:var(--red)!important}
+    .work{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(320px,.7fr);gap:16px}.panel-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line)}.panel-head h3{margin:0;font-size:18px}.panel-head p{margin:3px 0 0;color:var(--muted);font-size:12px}
+    .fault-list{padding:12px}.fault{display:grid;grid-template-columns:43px 1fr auto;align-items:center;gap:12px;padding:12px;border-radius:12px;border:1px solid transparent}.fault:hover{background:#f7faf9;border-color:#e8efec}.fault+.fault{margin-top:4px}.fault-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:11px;background:#edf5f2;color:var(--green);font-weight:900}.fault h4{margin:0 0 3px;font-size:14px}.fault p{margin:0;color:var(--muted);font-size:12px}.points{min-width:76px;height:38px;border:1px solid #f0d0d0;border-radius:10px;background:#fff6f6;color:var(--red);font-weight:850}.points:active{transform:scale(.98)}.points.fatal{background:var(--red);color:#fff;border-color:var(--red)}
+    .log{padding:12px 16px;max-height:530px;overflow:auto}.empty{padding:34px 12px;text-align:center;color:var(--muted)}.log-item{display:grid;grid-template-columns:1fr auto;gap:9px;padding:12px 2px;border-bottom:1px solid #edf1f2}.log-item strong{display:block;font-size:13px}.log-item small{color:var(--muted)}.minus{font-weight:900;color:var(--red)}.summary{padding:16px;border-top:1px solid var(--line);background:#fbfcfc;border-radius:0 0 17px 17px}.summary-line{display:flex;justify-content:space-between;margin-bottom:10px;font-size:13px}.summary-line.total{padding-top:10px;border-top:1px solid var(--line);font-size:17px;font-weight:850}.summary-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}
+    .toast{position:fixed;left:50%;bottom:22px;z-index:50;transform:translate(-50%,20px);padding:12px 17px;border-radius:12px;background:var(--navy);color:#fff;opacity:0;pointer-events:none;transition:.22s;box-shadow:var(--shadow);font-weight:700;font-size:13px}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:1050px){.status-row{grid-template-columns:1fr 1fr}.candidate{grid-column:1/-1}.work{grid-template-columns:1fr}.log{max-height:360px}}
+    @media(max-width:760px){.login{grid-template-columns:1fr}.hero{min-height:310px;padding:28px}.hero-copy{margin-top:55px}.hero h1{font-size:40px}.hero p{font-size:15px}.login-side{padding:32px 22px 46px}.topbar{height:auto;min-height:68px;padding:11px 14px}.top-title small{display:none}.top-actions .label{display:none}.status-row{grid-template-columns:1fr 1fr}.candidate{grid-template-columns:1fr 1fr}.candidate .photo{display:none}.stat strong{font-size:25px}.fault{grid-template-columns:38px 1fr auto;padding:10px 6px}.fault-icon{width:38px;height:38px}.points{min-width:68px}.container{padding-top:15px}}
+    @media print{.topbar,.fault-panel,.summary-actions,.toast{display:none!important}.container{padding:0}.status-row,.work{display:block}.card{box-shadow:none;margin:0 0 12px}.log{max-height:none}.app{background:#fff}}
+  </style>
+</head>
+<body>
+  <section class="login hidden" id="loginView">
+    <div class="hero">
+      <div class="brand"><span class="mark">✓</span><span>HỆ THỐNG SÁT HẠCH</span></div>
+      <div class="hero-copy">
+        <div class="eyebrow">Bài thi đường trường</div>
+        <h1>Chấm điểm nhanh.<br>Chính xác. Minh bạch.</h1>
+        <p>Công cụ hỗ trợ giáo viên chấm bài thi sát hạch lái xe ô tô hạng B và C1 trên điện thoại, máy tính bảng và máy tính.</p>
+        <div class="pills"><span class="pill">Hạng B</span><span class="pill">Hạng C1</span><span class="pill">Thang điểm 100</span></div>
+      </div>
+    </div>
+    <div class="login-side">
+      <form class="login-card" id="loginForm">
+        <h2>Đăng nhập giáo viên</h2>
+        <p>Nhập tài khoản được cấp để bắt đầu ca thi.</p>
+        <div class="field"><label for="username">Tên đăng nhập</label><input class="input" id="username" autocomplete="username" required placeholder="Nhập tên đăng nhập"></div>
+        <div class="field"><label for="password">Mật khẩu</label><input class="input" id="password" type="password" autocomplete="current-password" required placeholder="Nhập mật khẩu"></div>
+        <button class="login-btn" type="submit">Đăng nhập</button>
+        <div class="login-error" id="loginError"></div>
+        <div class="login-note">Phiên thử nghiệm lưu dữ liệu chấm điểm ngay trên thiết bị đang sử dụng.</div>
+      </form>
+    </div>
+  </section>
+
+  <main class="app" id="appView">
+    <header class="topbar">
+      <div class="top-left"><span class="mark">✓</span><div class="top-title"><strong>Sát hạch đường trường</strong><small>Hạng B & C1 · Phiên chấm điểm</small></div></div>
+      <div class="top-actions">
+        <button class="ghost" id="saveBtn">💾 <span class="label">Lưu tạm</span></button>
+        <button class="ghost" id="printBtn">🖨️ <span class="label">In biên bản</span></button>
+        <button class="danger" id="logoutBtn">Đăng xuất</button>
+      </div>
+    </header>
+    <div class="container">
+      <section class="status-row">
+        <div class="card candidate">
+          <div class="field wide"><label>Họ và tên thí sinh</label><input class="input data" id="candidateName" placeholder="Nguyễn Văn A"></div>
+          <div class="field"><label>Số báo danh</label><input class="input data" id="candidateId" placeholder="00001"></div>
+          <div class="field"><label>Hạng GPLX</label><select class="input data" id="licenseClass"><option>B</option><option>C1</option></select></div>
+          <div class="photo">🚘</div>
+        </div>
+        <div class="card stat score"><span>Điểm hiện tại</span><strong id="score">100</strong></div>
+        <div class="card stat"><span>Thời gian</span><strong id="timer">00:00</strong></div>
+        <div class="card stat result"><span>Kết quả</span><strong class="pass" id="result">ĐẠT</strong></div>
+      </section>
+
+      <section class="work">
+        <div class="card fault-panel">
+          <div class="panel-head"><div><h3>Thao tác chấm điểm</h3><p>Chạm vào mức điểm để ghi nhận lỗi của thí sinh</p></div><button class="primary" id="startBtn">Bắt đầu thi</button></div>
+          <div class="fault-list" id="faultList"></div>
+        </div>
+        <aside class="card">
+          <div class="panel-head"><div><h3>Nhật ký chấm thi</h3><p>Các lỗi đã ghi nhận theo thời gian</p></div><button class="ghost" id="undoBtn">↶ Hoàn tác</button></div>
+          <div class="log" id="log"><div class="empty">Chưa ghi nhận lỗi nào.</div></div>
+          <div class="summary">
+            <div class="summary-line"><span>Điểm ban đầu</span><strong>100</strong></div>
+            <div class="summary-line"><span>Tổng điểm trừ</span><strong id="deducted">0</strong></div>
+            <div class="summary-line total"><span>Điểm bài thi</span><strong id="finalScore">100</strong></div>
+            <div class="summary-actions"><button class="ghost" id="resetBtn">Làm mới</button><button class="primary" id="finishBtn">Kết thúc bài thi</button></div>
+          </div>
+        </aside>
+      </section>
+    </div>
+  </main>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const faults=[
+      {icon:"↗",name:"Không bật tín hiệu xin đường",detail:"Không bật hoặc tắt tín hiệu không đúng lúc",points:5},
+      {icon:"🪑",name:"Không thắt dây an toàn",detail:"Không cài dây an toàn trước khi xe chuyển bánh",points:5},
+      {icon:"🚗",name:"Khởi hành không an toàn",detail:"Không quan sát hoặc gây cản trở phương tiện khác",points:10},
+      {icon:"↔",name:"Sử dụng làn đường không đúng",detail:"Đi sai làn, đè vạch hoặc chuyển làn không an toàn",points:5},
+      {icon:"◷",name:"Tốc độ không phù hợp",detail:"Vượt tốc độ hoặc chạy quá chậm không cần thiết",points:5},
+      {icon:"⚙",name:"Để xe chết máy",detail:"Động cơ ngừng hoạt động trong bài thi",points:5},
+      {icon:"🛑",name:"Không chấp hành biển báo",detail:"Không dừng, nhường đường hoặc tuân thủ tín hiệu",points:10},
+      {icon:"↪",name:"Xử lý tình huống chưa tốt",detail:"Phanh, chuyển hướng hoặc quan sát không hợp lý",points:10},
+      {icon:"!",name:"Can thiệp của sát hạch viên",detail:"Sát hạch viên phải phanh hoặc điều khiển xe",points:100,fatal:true},
+      {icon:"✕",name:"Gây tai nạn hoặc tình huống nguy hiểm",detail:"Mất an toàn nghiêm trọng trong quá trình thi",points:100,fatal:true}
+    ];
+    let events=[],seconds=0,tick=null,running=false,finished=false;
+    const $=id=>document.getElementById(id);
+    function showApp(){$("loginView").classList.add("hidden");$("appView").classList.remove("hidden");renderFaults();restore()}
+    function renderFaults(){$("faultList").innerHTML=faults.map((f,i)=>`<div class="fault"><div class="fault-icon">${f.icon}</div><div><h4>${f.name}</h4><p>${f.detail}</p></div><button class="points ${f.fatal?"fatal":""}" data-i="${i}">${f.fatal?"TRƯỢT":"-"+f.points}</button></div>`).join("");document.querySelectorAll(".points").forEach(b=>b.onclick=()=>addFault(+b.dataset.i))}
+    function addFault(i){if(finished)return notify("Bài thi đã kết thúc.");const f=faults[i];events.push({...f,time:seconds});if(f.fatal)finished=true;update();notify(f.fatal?"Đã ghi lỗi trực tiếp trượt":"Đã trừ "+f.points+" điểm")}
+    function score(){return Math.max(0,100-events.reduce((a,e)=>a+e.points,0))}
+    function update(){const s=score(),fatal=events.some(e=>e.fatal);$("score").textContent=s;$("finalScore").textContent=s;$("deducted").textContent=100-s;const pass=!fatal&&s>=80;$("result").textContent=pass?"ĐẠT":"KHÔNG ĐẠT";$("result").className=pass?"pass":"fail";$("log").innerHTML=events.length?events.map(e=>`<div class="log-item"><div><strong>${e.name}</strong><small>${format(e.time)}</small></div><span class="minus">${e.fatal?"TRƯỢT":"-"+e.points}</span></div>`).reverse().join(""):`<div class="empty">Chưa ghi nhận lỗi nào.</div>`}
+    function format(n){return String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0")}
+    function start(){if(finished)return;running=!running;$("startBtn").textContent=running?"Tạm dừng":"Tiếp tục";clearInterval(tick);if(running)tick=setInterval(()=>{$("timer").textContent=format(++seconds)},1000)}
+    function snapshot(){return{events,seconds,name:$("candidateName").value,id:$("candidateId").value,cls:$("licenseClass").value}}
+    function restore(){const d=JSON.parse(localStorage.getItem("road_exam")||"null");if(!d)return;events=d.events||[];seconds=d.seconds||0;$("candidateName").value=d.name||"";$("candidateId").value=d.id||"";$("licenseClass").value=d.cls||"B";$("timer").textContent=format(seconds);update()}
+    function notify(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),1800)}
+    $("startBtn").onclick=start;$("undoBtn").onclick=()=>{if(!events.length)return notify("Không có thao tác để hoàn tác.");events.pop();finished=false;update();notify("Đã hoàn tác lỗi gần nhất")};
+    $("saveBtn").onclick=()=>{localStorage.setItem("road_exam",JSON.stringify(snapshot()));notify("Đã lưu dữ liệu trên thiết bị")};
+    $("resetBtn").onclick=()=>{if(!confirm("Làm mới toàn bộ bài thi hiện tại?"))return;events=[];seconds=0;finished=false;running=false;clearInterval(tick);$("timer").textContent="00:00";$("startBtn").textContent="Bắt đầu thi";update();localStorage.removeItem("road_exam")};
+    $("finishBtn").onclick=()=>{finished=true;running=false;clearInterval(tick);update();notify("Đã kết thúc bài thi")};
+    $("printBtn").onclick=()=>window.print();$("logoutBtn").onclick=async()=>{await fetch("/api/logout",{method:"POST"});location.href="/"};
+    renderFaults();restore();
+  </script>
+</body>
+</html>
