@@ -114,8 +114,26 @@
       {icon:"✕",name:"Gây tai nạn hoặc tình huống nguy hiểm",detail:"Mất an toàn nghiêm trọng trong quá trình thi",points:100,fatal:true}
     ];
     let events=[],seconds=0,tick=null,running=false,finished=false;
-    let soundEnabled=localStorage.getItem("exam_sound")!=="off",audioContext=null;
+    let soundEnabled=localStorage.getItem("exam_sound")!=="off",audioContext=null,vietnameseVoice=null;
     const $=id=>document.getElementById(id);
+    function selectVietnameseVoice(){
+      if(!("speechSynthesis" in window))return null;
+      const voices=speechSynthesis.getVoices(),vi=voices.filter(v=>/^vi[-_]/i.test(v.lang)||/việt|vietnam/i.test(v.name));
+      const preferred=[/hoài my|hoai my/i,/linh/i,/female|nữ/i,/google.*việt|google.*vietnam/i,/microsoft.*việt|microsoft.*vietnam/i];
+      vietnameseVoice=preferred.map(pattern=>vi.find(v=>pattern.test(v.name))).find(Boolean)||vi[0]||null;
+      return vietnameseVoice;
+    }
+    if("speechSynthesis" in window){
+      selectVietnameseVoice();
+      speechSynthesis.addEventListener("voiceschanged",selectVietnameseVoice);
+    }
+    function speak(text){
+      if(!soundEnabled||!("speechSynthesis" in window))return;
+      speechSynthesis.cancel();
+      const utterance=new SpeechSynthesisUtterance(text);
+      utterance.lang="vi-VN";utterance.voice=vietnameseVoice||selectVietnameseVoice();utterance.rate=.9;utterance.pitch=1.06;utterance.volume=1;
+      speechSynthesis.speak(utterance);
+    }
     function tone(frequency,duration=.08,delay=0,type="sine",volume=.055){
       if(!soundEnabled)return;
       audioContext ||= new (window.AudioContext||window.webkitAudioContext)();
@@ -139,19 +157,19 @@
     function refreshSoundButton(){$("soundBtn").innerHTML=`${soundEnabled?"🔊":"🔇"} <span class="label">${soundEnabled?"Âm thanh":"Đã tắt"}</span>`}
     function showApp(){$("loginView").classList.add("hidden");$("appView").classList.remove("hidden");renderFaults();restore()}
     function renderFaults(){$("faultList").innerHTML=faults.map((f,i)=>`<div class="fault"><div class="fault-icon">${f.icon}</div><div><h4>${f.name}</h4><p>${f.detail}</p></div><button class="points ${f.fatal?"fatal":""}" data-i="${i}">${f.fatal?"TRƯỢT":"-"+f.points}</button></div>`).join("");document.querySelectorAll(".points").forEach(b=>b.onclick=()=>addFault(+b.dataset.i))}
-    function addFault(i){if(finished)return notify("Bài thi đã kết thúc.");const f=faults[i];events.push({...f,time:seconds});if(f.fatal)finished=true;sound(f.fatal?"fatal":"deduct");update();notify(f.fatal?"Đã ghi lỗi trực tiếp trượt":"Đã trừ "+f.points+" điểm")}
+    function addFault(i){if(finished)return notify("Bài thi đã kết thúc.");const f=faults[i];events.push({...f,time:seconds});if(f.fatal)finished=true;sound(f.fatal?"fatal":"deduct");speak(f.fatal?`Bài thi không đạt. ${f.name}.`:f.name+".");update();notify(f.fatal?"Đã ghi lỗi trực tiếp trượt":"Đã trừ "+f.points+" điểm")}
     function score(){return Math.max(0,100-events.reduce((a,e)=>a+e.points,0))}
     function update(){const s=score(),fatal=events.some(e=>e.fatal);$("score").textContent=s;$("finalScore").textContent=s;$("deducted").textContent=100-s;const pass=!fatal&&s>=80;$("result").textContent=pass?"ĐẠT":"KHÔNG ĐẠT";$("result").className=pass?"pass":"fail";$("log").innerHTML=events.length?events.map(e=>`<div class="log-item"><div><strong>${e.name}</strong><small>${format(e.time)}</small></div><span class="minus">${e.fatal?"TRƯỢT":"-"+e.points}</span></div>`).reverse().join(""):`<div class="empty">Chưa ghi nhận lỗi nào.</div>`}
     function format(n){return String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0")}
-    function start(){if(finished)return;running=!running;sound(running?"start":"pause");$("startBtn").textContent=running?"Tạm dừng":"Tiếp tục";clearInterval(tick);if(running)tick=setInterval(()=>{$("timer").textContent=format(++seconds)},1000)}
+    function start(){if(finished)return;running=!running;sound(running?"start":"pause");speak(running?"Bắt đầu bài thi.":"Tạm dừng bài thi.");$("startBtn").textContent=running?"Tạm dừng":"Tiếp tục";clearInterval(tick);if(running)tick=setInterval(()=>{$("timer").textContent=format(++seconds)},1000)}
     function snapshot(){return{events,seconds,name:$("candidateName").value,id:$("candidateId").value,cls:$("licenseClass").value}}
     function restore(){const d=JSON.parse(localStorage.getItem("road_exam")||"null");if(!d)return;events=d.events||[];seconds=d.seconds||0;$("candidateName").value=d.name||"";$("candidateId").value=d.id||"";$("licenseClass").value=d.cls||"B";$("timer").textContent=format(seconds);update()}
     function notify(t){$("toast").textContent=t;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),1800)}
-    $("startBtn").onclick=start;$("undoBtn").onclick=()=>{if(!events.length)return notify("Không có thao tác để hoàn tác.");events.pop();finished=false;sound("undo");update();notify("Đã hoàn tác lỗi gần nhất")};
-    $("soundBtn").onclick=()=>{soundEnabled=!soundEnabled;localStorage.setItem("exam_sound",soundEnabled?"on":"off");refreshSoundButton();if(soundEnabled)sound("success")};
+    $("startBtn").onclick=start;$("undoBtn").onclick=()=>{if(!events.length)return notify("Không có thao tác để hoàn tác.");events.pop();finished=false;sound("undo");speak("Đã hoàn tác lỗi vừa chấm.");update();notify("Đã hoàn tác lỗi gần nhất")};
+    $("soundBtn").onclick=()=>{soundEnabled=!soundEnabled;localStorage.setItem("exam_sound",soundEnabled?"on":"off");refreshSoundButton();if(soundEnabled){sound("success");speak("Âm thanh và giọng đọc đã bật.")}else if("speechSynthesis" in window)speechSynthesis.cancel()};
     $("saveBtn").onclick=()=>{localStorage.setItem("road_exam",JSON.stringify(snapshot()));sound("success");notify("Đã lưu dữ liệu trên thiết bị")};
     $("resetBtn").onclick=()=>{if(!confirm("Làm mới toàn bộ bài thi hiện tại?"))return;events=[];seconds=0;finished=false;running=false;clearInterval(tick);$("timer").textContent="00:00";$("startBtn").textContent="Bắt đầu thi";sound("undo");update();localStorage.removeItem("road_exam")};
-    $("finishBtn").onclick=()=>{finished=true;running=false;clearInterval(tick);sound("finish");update();notify("Đã kết thúc bài thi")};
+    $("finishBtn").onclick=()=>{finished=true;running=false;clearInterval(tick);sound("finish");update();speak(`Kết thúc bài thi. Kết quả ${$("result").textContent.toLowerCase()}.`);notify("Đã kết thúc bài thi")};
     $("printBtn").onclick=()=>window.print();$("logoutBtn").onclick=async()=>{await fetch("/api/logout",{method:"POST"});location.href="/"};
     refreshSoundButton();renderFaults();restore();
   </script>
